@@ -26,6 +26,7 @@
 #define _NIOS2NOMMU_SYSTEM_H
 
 #include <linux/linkage.h>
+#include <linux/compiler.h>
 #include <asm/segment.h>
 #include <asm/entry.h>
 #include <asm/nios.h>
