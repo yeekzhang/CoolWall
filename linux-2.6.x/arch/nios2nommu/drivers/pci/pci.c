@@ -23,7 +23,7 @@ static int __init pcibios_init(void)
 	struct pci_bus *bus;
 	int busno;
 
-#ifdef CONFIG_PCI_AUTO
+#if 1
 	/* assign resources */
 	busno = 0;
 	for (p = board_pci_channels; p->pci_ops != NULL; p++) {

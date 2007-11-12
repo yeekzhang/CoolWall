@@ -41,8 +41,8 @@ include $(TOP)/Makefile.rules
 
 ifeq ($(SHAREDLIBS), Y)
 $(TOP)/bin/nxroach: $(OBJS) $(NANOXCLIENTLIBS) $(TOP)/config
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(CCNANOXCLIENTLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(CCNANOXCLIENTLIBS) $(LDLIBS)
 else
 $(TOP)/bin/nxroach: $(OBJS) $(NANOXCLIENTLIBS) $(TOP)/config
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(NANOXCLIENTLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(NANOXCLIENTLIBS) $(LDLIBS) -lm
 endif

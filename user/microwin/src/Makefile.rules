@@ -80,7 +80,7 @@ DEFINES += -DHAVE_FILEIO
 ifeq ($(HAVE_TIFF_SUPPORT), Y)
 DEFINES += -DHAVE_TIFF_SUPPORT=1
 MW_CORE_LIBS += $(LIBTIFF)
-LDFLAGS += -lm
+MW_CORE_LIBS += -lm
 ifneq ($(INCTIFF),)
 INCLUDEDIRS += -I$(INCTIFF)
 endif
@@ -101,7 +101,7 @@ ifneq ($(INCPNG),)
 INCLUDEDIRS += -I$(INCPNG)
 endif
 ifneq ($(ARCH), ECOS)
-LDFLAGS += -lm
+MW_CORE_LIBS += -lm
 endif
 endif
 
@@ -120,7 +120,7 @@ MW_CORE_LIBS += $(LIBT1LIB)
 ifneq ($(INCT1LIB),)
 INCLUDEDIRS += -I$(INCT1LIB)
 endif
-LDFLAGS += -lm
+MW_CORE_LIBS += -lm
 endif
 
 ifeq ($(HAVE_FREETYPE_SUPPORT), Y)
@@ -130,7 +130,7 @@ MW_CORE_LIBS += $(LIBFTLIB)
 ifneq ($(INCFTLIB),)
 INCLUDEDIRS += -I$(INCFTLIB)
 endif
-LDFLAGS += -lm
+MW_CORE_LIBS += -lm
 endif
 
 ifeq ($(HAVE_FREETYPE_2_SUPPORT), Y)
@@ -343,7 +343,7 @@ else
 #OPTFLAGS += -DNDEBUG
 endif
 
-CFLAGS += $(INCLUDEDIRS)
+CFLAGS += $(INCLUDEDIRS) -DLINUX=1 -DUNIX=1
 HOSTCFLAGS := $(INCLUDEDIRS)
 CPPFLAGS += $(DEFINES)
 LDFLAGS += -L$(TOP)/lib

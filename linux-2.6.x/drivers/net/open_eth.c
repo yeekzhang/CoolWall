@@ -933,8 +933,7 @@ void oeth_phymac_synch (struct net_device *dev, int callerflg)
  | Entry condition: Cpu interrupts DISabled.
  */
 static irqreturn_t oeth_PhyInterrupt(int             irq,
-                                     void           *dev_id,
-                                     struct pt_regs *regs)
+                                     void           *dev_id)
   {
     #if defined(TDK78Q2120PHY)
 
@@ -1376,8 +1375,7 @@ oeth_rx(struct net_device *dev)
  | Entry condition: Cpu interrupts DISabled.
  */
 static irqreturn_t oeth_interrupt(int             irq,
-                                  void           *dev_id,
-                                  struct pt_regs *regs)
+                                  void           *dev_id)
 {
     struct  net_device *dev = dev_id;
     volatile struct oeth_private *cep;

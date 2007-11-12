@@ -15,7 +15,7 @@
  *
  * Environment Var	Default		Allowed
  * MOUSE_TYPE		pc		ms, pc, logi, ps2
- * MOUSE_PORT		/dev/ttyS1	any serial port or /dev/psaux
+ * MOUSE_PORT		/dev/ttyS1	any serial port or /dev/input/mice (old /dev/psaux)
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,8 +46,8 @@
 #if ELKS
 #define	MOUSE_PORT	"/dev/ttys0"	/* default mouse tty port */
 #else
-/*#define MOUSE_PORT	"/dev/ttyS1"	/* default mouse tty port */*/
-#define MOUSE_PORT	"/dev/psaux"	/* default mouse tty port*/
+/*#define MOUSE_PORT	"/dev/ttyS1"	/* default mouse tty port */
+#define MOUSE_PORT	"/dev/input/mice"	/* default mouse tty port*/
 #endif
 /* For the COBRA5272 we use mouse type ms: */
 #ifdef CONFIG_COBRA5272

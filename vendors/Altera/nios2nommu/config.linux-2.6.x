@@ -108,6 +108,8 @@ CONFIG_NIOS2_HW_MUL=y
 # CONFIG_FB_ALTERA is not set
 # CONFIG_SERIO_ALTPS2 is not set
 # CONFIG_I2C_GPIO is not set
+# CONFIG_BLK_DEV_ALTCF is not set
+# CONFIG_NIOS_SPI is not set
 
 #
 # Miscellaneous Options
@@ -342,8 +344,12 @@ CONFIG_NETDEVICES=y
 CONFIG_NET_ETHERNET=y
 CONFIG_MII=y
 # CONFIG_NET_VENDOR_SMC is not set
+# CONFIG_SMC91X is not set
 # CONFIG_OPEN_ETH is not set
 # CONFIG_MTIP1000_ETH is not set
+# CONFIG_DM9000 is not set
+# CONFIG_DM9KS is not set
+# CONFIG_SMC911X is not set
 # CONFIG_NE2000 is not set
 # CONFIG_NET_PCI is not set
 
@@ -502,9 +508,10 @@ CONFIG_HWMON=y
 #
 # USB support
 #
-# CONFIG_USB_ARCH_HAS_HCD is not set
+CONFIG_USB_ARCH_HAS_HCD=y
 # CONFIG_USB_ARCH_HAS_OHCI is not set
 # CONFIG_USB_ARCH_HAS_EHCI is not set
+# CONFIG_USB is not set
 
 #
 # NOTE: USB_STORAGE enables SCSI, and 'SCSI disk support'

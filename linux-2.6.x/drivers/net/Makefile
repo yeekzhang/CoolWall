@@ -90,6 +90,7 @@ obj-$(CONFIG_HP100) += hp100.o
 obj-$(CONFIG_SMC9194) += smc9194.o
 obj-$(CONFIG_OPEN_ETH) += open_eth.o
 obj-$(CONFIG_MTIP1000_ETH) += mtip1000.o
+obj-$(CONFIG_DM9KS) += dm9ks.o
 obj-$(CONFIG_FEC) += fec.o
 obj-$(CONFIG_ARM_ETHERH) += 8390.o
 obj-$(CONFIG_WD80x3) += wd.o 8390.o
