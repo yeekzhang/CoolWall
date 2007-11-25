@@ -73,6 +73,8 @@ extern struct net_device *sonic_probe(int unit);
 extern struct net_device *SK_init(int unit);
 extern struct net_device *seeq8005_probe(int unit);
 extern struct net_device *smc_init(int unit);
+extern struct net_device *oeth_init(int unit);
+extern struct net_device *mtip1000_init(int unit);
 extern struct net_device *dm9ks_probe(int unit);
 extern struct net_device *atarilance_probe(int unit);
 extern struct net_device *sun3lance_probe(int unit);
