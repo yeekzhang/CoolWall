@@ -858,6 +858,7 @@ fi
 bool 'gdb (host)'		CONFIG_USER_GDB_HOST
 bool 'gdbreplay (old)'		CONFIG_USER_GDBSERVER_GDBREPLAY
 bool 'gdbserver (old)'		CONFIG_USER_GDBSERVER_GDBSERVER
+bool 'debug'			CONFIG_USER_DEBUG_DEBUG
 bool 'grep'			CONFIG_USER_GREP_GREP
 bool 'hd'			CONFIG_USER_HD_HD
 bool 'lcd'			CONFIG_USER_LCD_LCD
