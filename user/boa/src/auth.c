@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <string.h>
 #ifdef __UC_LIBC__
 #include <unistd.h>
 #else
@@ -355,7 +356,7 @@ int auth_authorize(request * req)
 							syslog(LOG_ERR, "Authentication attempt failed for %s from %s because: Invalid Username\n",
 									auth_userpass, req->remote_ip_addr);
 					}
-					bzero(current_client, sizeof(current_client));
+					memset(current_client, 0, sizeof(current_client));
 					send_r_unauthorized(req,server_name);
 					return 0;
 				}
