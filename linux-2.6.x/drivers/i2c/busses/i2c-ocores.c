@@ -96,6 +96,8 @@ static void ocores_process(struct ocores_i2c *i2c)
 		i2c->state =
 			(msg->flags & I2C_M_RD) ? STATE_READ : STATE_WRITE;
 
+		oc_setreg(i2c, OCI2C_CMD, OCI2C_CMD_IACK);
+
 		if (stat & OCI2C_STAT_NACK) {
 			i2c->state = STATE_ERROR;
 			oc_setreg(i2c, OCI2C_CMD, OCI2C_CMD_STOP);
@@ -183,7 +185,7 @@ static void ocores_init(struct ocores_i2c *i2c,
 	/* make sure the device is disabled */
 	oc_setreg(i2c, OCI2C_CONTROL, ctrl & ~(OCI2C_CTRL_EN|OCI2C_CTRL_IEN));
 
-	prescale = (pdata->clock_khz / (5*100)) - 1;
+	prescale = (pdata->clock_khz / (5*CONFIG_I2C_OCORES_SPEED)) - 1;
 	oc_setreg(i2c, OCI2C_PRELOW, prescale & 0xff);
 	oc_setreg(i2c, OCI2C_PREHIGH, prescale >> 8);
 

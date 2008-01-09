@@ -673,3 +673,69 @@ static int __init i2c_gpio_device_init(void)
 arch_initcall(i2c_gpio_device_init);
 
 #endif // CONFIG_I2C_GPIO
+
+#if defined(CONFIG_I2C_OCORES) && defined(na_ocores_i2c_0)
+
+#include <linux/i2c-ocores.h>
+static struct ocores_i2c_platform_data ocores_i2c_data = {
+  .regstep = 4,
+  .clock_khz = nasys_clock_freq_1000,
+};
+static struct resource ocores_i2c_0_resources[] = {
+  [0] = {
+    .start    = na_ocores_i2c_0,
+    .end    = na_ocores_i2c_0 + 0x20 - 1,
+    .flags    = IORESOURCE_MEM,
+  },
+  [1] = {
+    .start    = na_ocores_i2c_0_irq,
+    .end    = na_ocores_i2c_0_irq,
+    .flags    = IORESOURCE_IRQ,
+  },
+};
+static struct platform_device ocores_i2c_0_device = {
+  .name   = "ocores-i2c",
+  .id   = 0,
+  .num_resources  = ARRAY_SIZE(ocores_i2c_0_resources),
+  .resource = ocores_i2c_0_resources,
+  .dev = {
+    .platform_data = &ocores_i2c_data,
+  },
+};
+
+#if defined(na_ocores_i2c_1)
+static struct resource ocores_i2c_1_resources[] = {
+  [0] = {
+    .start    = na_ocores_i2c_1,
+    .end    = na_ocores_i2c_1 + 0x20 - 1,
+    .flags    = IORESOURCE_MEM,
+  },
+  [1] = {
+    .start    = na_ocores_i2c_1_irq,
+    .end    = na_ocores_i2c_1_irq,
+    .flags    = IORESOURCE_IRQ,
+  },
+};
+static struct platform_device ocores_i2c_1_device = {
+  .name   = "ocores-i2c",
+  .id   = 1,
+  .num_resources  = ARRAY_SIZE(ocores_i2c_1_resources),
+  .resource = ocores_i2c_1_resources,
+  .dev = {
+    .platform_data = &ocores_i2c_data,
+  },
+};
+#endif // na_ocores_i2c_1
+
+static int __init ocores_i2c_device_init(void)
+{
+  /* customizes platform devices, or adds new ones */
+  platform_device_register(&ocores_i2c_0_device);
+#if defined(na_ocores_i2c_1)
+  platform_device_register(&ocores_i2c_1_device);
+#endif // na_ocores_i2c_1
+  return 0;
+}
+arch_initcall(ocores_i2c_device_init);
+
+#endif

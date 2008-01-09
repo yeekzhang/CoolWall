@@ -297,6 +297,19 @@ config I2C_OCORES
 	  This driver can also be built as a module.  If so, the module
 	  will be called i2c-ocores.
 
+config I2C_OCORES_SPEED
+	int "I2C Speed (Kbps)"
+	depends on I2C_OCORES
+	default "100"
+	help
+	  Select the I2C speed here the I2C standard defines normal mode as
+	  100 kbps which should be a safe (but slow) choice. Other defined
+	  speeds are 400 for Fast Mode 1000 for Fast Mode Plus and up to 
+	  34000 for High speed mode. The core supports all speeds (even higher
+	  if your bus speed is high enough) but most slave chips won't. 
+	  
+	  Most people will choose 100 or 400 here. If unsure 100 is a safe bet.
+
 config I2C_OMAP
 	tristate "OMAP I2C adapter"
 	depends on I2C && ARCH_OMAP
