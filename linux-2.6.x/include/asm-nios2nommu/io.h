@@ -111,6 +111,27 @@ extern void outsl(unsigned long port, void *src, unsigned long count);
 #define __raw_writew writew
 #define __raw_writel writel
 
+/* Simple MMIO */
+#define ioread8(a)    readb(a)
+#define ioread16(a)   readw(a)
+#define ioread16be(a)   be16_to_cpu(__raw_readw((a)))
+#define ioread32(a)   readl(a)
+#define ioread32be(a)   be32_to_cpu(__raw_readl((a)))
+
+#define iowrite8(v,a)   writeb((v),(a))
+#define iowrite16(v,a)    writew((v),(a))
+#define iowrite16be(v,a)  __raw_writew(cpu_to_be16((v)),(a))
+#define iowrite32(v,a)    writel((v),(a))
+#define iowrite32be(v,a)  __raw_writel(cpu_to_be32((v)),(a))
+
+#define ioread8_rep(a,d,c)  insb((a),(d),(c))
+#define ioread16_rep(a,d,c) insw((a),(d),(c))
+#define ioread32_rep(a,d,c) insl((a),(d),(c))
+
+#define iowrite8_rep(a,s,c) outsb((a),(s),(c))
+#define iowrite16_rep(a,s,c)  outsw((a),(s),(c))
+#define iowrite32_rep(a,s,c)  outsl((a),(s),(c))
+
 #define mmiowb()
 
 /*
