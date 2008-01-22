@@ -9,7 +9,9 @@ ENTRY(_start)	/* Defined in head.S */
 MEMORY {
 	ram	: ORIGIN = nasys_program_mem, LENGTH = nasys_program_mem_size
 	eram	: ORIGIN = nasys_program_mem_end, LENGTH = 0
+#if defined(na_flash_kernel)
 	romfs	: ORIGIN = na_flash_kernel + 0x200000, LENGTH = na_flash_kernel_size - 0x200000
+#endif
 }
 
 jiffies = jiffies_64;
@@ -168,12 +170,14 @@ SECTIONS
 		_ramend = . ;
 	} > eram
 
+#if defined(na_flash_kernel)
 	.romfs.data :
 	{
 	    _romfs = . ; 
 	    *(.romfs.data) ; 
 	    _romfs_end = . ; 
 	} > romfs
+#endif
 	
  /* Sections to be discarded */
   /DISCARD/ : {
