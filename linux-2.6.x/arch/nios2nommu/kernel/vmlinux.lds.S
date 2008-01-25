@@ -61,6 +61,16 @@ SECTIONS
 		*(__ksymtab_gpl)
 		__stop___ksymtab_gpl = .;
 
+		/* Kernel symbol table: Normal unused symbols */
+		__start___ksymtab_unused = .;
+		*(__ksymtab_unused)
+		__stop___ksymtab_unused = .;
+
+		/* Kernel symbol table: GPL-only unused symbols */
+		__start___ksymtab_unused_gpl = .;
+		*(__ksymtab_unused_gpl)
+		__stop___ksymtab_unused_gpl = .;
+
 		/* Kernel symbol table: GPL-future symbols */
 		__start___ksymtab_gpl_future = .;
 		*(__ksymtab_gpl_future)
@@ -85,6 +95,7 @@ SECTIONS
 		*(__ksymtab_strings)
 
 		/* Built-in module parameters */
+		. = ALIGN(4) ;
 		__start___param = .;
 		*(__param)
 		__stop___param = .;
@@ -120,13 +131,7 @@ SECTIONS
 		*(.init.setup)
 		__setup_end = .;
 		__initcall_start = .;
-		*(.initcall1.init)
-		*(.initcall2.init)
-		*(.initcall3.init)
-		*(.initcall4.init)
-		*(.initcall5.init)
-		*(.initcall6.init)
-		*(.initcall7.init)
+		INITCALLS
 		__initcall_end = .;
 		__con_initcall_start = .;
 		*(.con_initcall.init)
