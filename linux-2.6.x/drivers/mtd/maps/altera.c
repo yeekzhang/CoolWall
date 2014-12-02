@@ -34,74 +34,91 @@ static struct mtd_partition *mtd_parts;
 static int                   mtd_parts_nb;
 
 static struct mtd_partition alteramap_partitions[] = {
-#ifdef CONFIG_ALTERA_STRATIX_II
-	{
-		.name =		"romfs/jffs2",
-		.size =		0x600000,
-		.offset =	0x200000,
-	},{
-		.name =		"loader/kernel",
-		.size =		0x200000,
-		.offset =	0,
-	}, {
-		.name =		"User configuration",
-		.size =		0x400000,
-		.offset =	0x800000,
-	}, {
-		.name =		"safe configuration",
-		.size =		0x400000,
-		.offset =	0xc00000,
-		.mask_flags =	MTD_WRITEABLE,  /* force read-only */
-	}
-#elif defined(CONFIG_ALTERA_STRATIX_PRO)
-	{
-		.name =		"romfs/jffs2",
-		.size =		0x200000,
-		.offset =	0x200000,
-	},{
-		.name =		"loader/kernel",
-		.size =		0x200000,
-		.offset =	0,
-	}, {
-		.name =		"User configuration",
-		.size =		0x200000,
-		.offset =	0x400000,
-	}, {
-		.name =		"safe configuration",
-		.size =		0x200000,
-		.offset =	0x600000,
-		.mask_flags =	MTD_WRITEABLE,  /* force read-only */
-	}
-#elif defined(CONFIG_ALTERA_DE2)
-	{
-		.name =		"romfs/jffs2",
-		.size =		0x200000,
-		.offset =	0x200000,
-	},{
-		.name =		"loader/kernel",
-		.size =		0x200000,
-		.offset =	0,
-	}
-#else
-	{
-		.name =		"romfs/jffs2",
-		.size =		0x400000,
-		.offset =	0x200000,
-	},{
-		.name =		"loader/kernel",
-		.size =		0x200000,
-		.offset =	0,
-	}, {
-		.name =		"User configuration",
-		.size =		0x100000,
-		.offset =	0x600000,
-	}, {
-		.name =		"safe configuration",
-		.size =		0x100000,
-		.offset =	0x700000,
-		.mask_flags =	MTD_WRITEABLE,  /* force read-only */
-	}
-#endif
+//#ifdef CONFIG_ALTERA_STRATIX_II
+//	{
+//		.name =		"romfs/jffs2",
+//		.size =		0x600000,
+//		.offset =	0x200000,
+//	},{
+//		.name =		"loader/kernel",
+//		.size =		0x200000,
+//		.offset =	0,
+//	}, {
+//		.name =		"User configuration",
+//		.size =		0x400000,
+//		.offset =	0x800000,
+//	}, {
+//		.name =		"safe configuration",
+//		.size =		0x400000,
+//		.offset =	0xc00000,
+//		.mask_flags =	MTD_WRITEABLE,  /* force read-only */
+//	}
+//#elif defined(CONFIG_ALTERA_STRATIX_PRO)
+//	{
+//		.name =		"romfs/jffs2",
+//		.size =		0x200000,
+//		.offset =	0x200000,
+//	},{
+//		.name =		"loader/kernel",
+//		.size =		0x200000,
+//		.offset =	0,
+//	}, {
+//		.name =		"User configuration",
+//		.size =		0x200000,
+//		.offset =	0x400000,
+//	}, {
+//		.name =		"safe configuration",
+//		.size =		0x200000,
+//		.offset =	0x600000,
+//		.mask_flags =	MTD_WRITEABLE,  /* force read-only */
+//	}
+//#elif defined(CONFIG_ALTERA_DE2)
+//	{
+//		.name =		"romfs/jffs2",
+//		.size =		0x200000,
+//		.offset =	0x200000,
+//	},{
+//		.name =		"loader/kernel",
+//		.size =		0x200000,
+//		.offset =	0,
+//	}
+//#else
+    {
+        .name =     "boot_loader",
+        .size =     0x00020000,
+        .offset =   0x00000000,
+    },
+    {
+		.name =		"option_bits",
+		.size =		0x00020000,
+		.offset =	0x00020000,
+	},
+    {
+        .name =     "fpga0",
+        .size =     0x00220000,
+        .offset =   0x00040000,
+    }, 
+    {
+        .name =     "fpga1",
+        .size =     0x00220000,
+        .offset =   0x00260000,
+    }, 
+    {
+        .name =     "linux0",
+        .size =     0x00800000,
+        .offset =   0x00480000,
+    },
+    {
+        .name =     "linux1",
+        .size =     0x00800000,
+        .offset =   0x00c80000,
+    },
+    {
+        .name =     "romfs/jffs2",
+        .size =     0x00b80000,
+        .offset =   0x01480000,
+    }
+//#endif
 };
 
 #define NUM_PARTITIONS	(sizeof(alteramap_partitions)/sizeof(struct mtd_partition))

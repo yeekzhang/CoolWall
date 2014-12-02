@@ -165,13 +165,50 @@ foreach my $module_name (@module_names) {
 		}
 
 	} else {
+		my $base_address;
+		my $mem_size;
+		my $mem_end;
+
 		# if device has multiple ports
 		foreach my $port_name (@module_ports) {
+		    # SBM:
+		    # for devices with multiple ports, only print module name if
+		    # port is a memory device 
+		    # Only one port can be a memory device in this case!!!
+		    if ($module->isMemoryDevice($port_name)) {
 			# base address information
-			$result = $module->getBaseAddress ($port_name);
-			if ($result) {
+			$base_address = $module->getBaseAddress ($port_name);
+			if ($base_address) {
 			$output .= sprintf ("#define na_%-50s %#010x\n", 
-				($module_name . "_" . $port_name, hex ($result) | $mask));
+				($module_name, hex ($base_address) | $mask));
+				$text_printed = 1;
+			}
+
+			# output size and end address
+			$mem_size = $module->getSize($port_name);
+			$output .= sprintf ("#define na_%-50s %#010x\n",
+				($module_name . "_size", hex ($mem_size)));
+			$mem_end = hex ($mem_size) + hex($base_address);
+			$output .= sprintf ("#define na_%-50s %#010x\n",
+				($module_name . "_end", $mem_end));
+
+			$text_printed = 1;
+
+			# irq information
+			$result = $module->getIRQ ($port_name);
+			if (defined ($result)) {
+			$output .= sprintf ("#define na_%-30s %30s\n", 
+				($module_name . "_irq", $result));
+				$text_printed = 1;
+			}
+		    }
+		    else
+		    {
+			# base address information
+			$base_address = $module->getBaseAddress ($port_name);
+			if ($base_address) {
+			$output .= sprintf ("#define na_%-50s %#010x\n", 
+				($module_name . "_" . $port_name, hex ($base_address) | $mask));
 				$text_printed = 1;
 			}
 
@@ -182,6 +219,7 @@ foreach my $module_name (@module_names) {
 				($module_name . "_" . $port_name . "_irq", $result));
 				$text_printed = 1;
 			}
+		    }
 		}
 	}
 
@@ -244,9 +282,9 @@ print "\n";
 
 printf ("#define %-33s %30s\n", 
 	("nasys_program_mem", "na_${exec_location}"));
-printf ("#define %-33s %30s\n", 
+printf ("#define %-33s (%30s - 0x800000)\n", 
 	("nasys_program_mem_size", "na_${exec_location}_size"));
-printf ("#define %-33s %30s\n", 
+printf ("#define %-33s (%30s - 0x800000)\n", 
 	("nasys_program_mem_end", "na_${exec_location}_end"));
 	
 print "\n";
