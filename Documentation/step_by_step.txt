@@ -1,0 +1,27 @@
+- Download the repository
+    wget -t -0 -c ftp://ftp.altera.com/outgoing/uClinux-dist-20080131.tar
+    
+   Original: git://sopc.et.ntust.edu.tw/git/uClinux-dist.git
+   AlteraWiki: http://www.alterawiki.com/wiki/Git_Server
+
+- Extract & checkout
+    . tar xvf uClinux-dist-20080131.tar
+    . cd uClinux-dist || git checkout nios2
+
+- Copy configuration files & vendor PTF file
+    . ecu2.ptf
+    . config/.config
+    . linux-2.6.x/.config
+
+- Config & build
+    . Preinstalled in system: lynx text-based web browser
+    . make config
+	> Vendor/Product Selection -->
+            . Vendor (Altera)
+            . Altera Products (niosnommu)
+        > Kernel is linux-2.6.x
+            . Libc Version (None)
+        > [*]Customize Kernel Settings
+        > [*]Customize Application/Library Settings
+
+    . make verdor_hwselect SYSPTF=/home/xxx/uClinux-dist/ecu2.ptf  
